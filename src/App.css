@@ -23,3 +23,10 @@ a {
     height: 40px;
     margin-left: 15px;
 }
+
+.page_number{
+    display: flex;
+    justify-content: space-evenly;
+    text-decoration: none;
+    list-style: none;
+}

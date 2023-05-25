@@ -54,7 +54,14 @@ const Carousel = () => {
 
     return (
       <Link
-        className={classes.carouselItem}
+        style={{
+          color: "rgb(237,211,252)",
+          display: "flex",
+          flexDirection: "column",
+          alignItems: "center",
+          cursor: "pointer",
+          textTransform: "uppercase",
+        }}
         to={`/coins/${coin.id}`}
         key={coin.id}
       >
@@ -83,7 +90,12 @@ const Carousel = () => {
   });
 
   return (
-    <div style={classes.carousel} className="carousel">
+    <div style={{
+      height: "50%",
+      display: "flex",
+      alignItems: "center",
+      padding: "40px"
+    }} className="carousel">
       <AliceCarousel
         mouseTracking
         infinite

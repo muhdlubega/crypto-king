@@ -38,7 +38,7 @@ const CoinInfo = ({ coin }) => {
   }
 
   return (
-    <div className="container">
+    <div className="container" style={{flexGrow: 1, padding: 10}}>
       {historicalData 
       || !flag 
       ? (

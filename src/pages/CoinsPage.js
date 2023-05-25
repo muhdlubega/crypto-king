@@ -7,22 +7,6 @@ import { SingleCoin } from '../config/api';
 import CoinInfo from '../components/CoinInfo';
 
 const useStyles = () => ({
-  container: {
-    display: 'flex',
-  },
-  sidebar: {
-    width: '30%',
-    display: 'flex',
-    flexDirection: 'column',
-    alignItems: 'center',
-    marginTop: 25,
-    borderRight: '2px solid grey',
-  },
-  heading: {
-    fontWeight: 'bold',
-    marginBottom: 20,
-    fontFamily: 'Montserrat'
-  },
   description: {
     width: '100%',
     fontFamily: 'Montserrat',
@@ -64,16 +48,33 @@ const CoinsPage = () => {
   return (
     <div>
       <Header/>
-      <div className={classes.container}>
-        <div className={classes.sidebar}>
+      <div style={{display: 'flex', flexGrow: 1}}>
+        <div style={{width: '30%',
+    display: 'flex',
+    flexDirection: 'column',
+    alignItems: 'center',
+    marginTop: 25,
+    borderRight: '2px solid grey',}}>
           <img src={coin?.image.large} alt={coin?.name} height='200' style={{marginBottom : 20}}></img>
-          <h3 className={classes.heading}>{coin?.name}</h3>
-          <h6 className={classes.description}>
+          <h3 style={{fontWeight: 'bold',
+    marginBottom: 20,
+    fontFamily: 'Montserrat'}}>{coin?.name}</h3>
+          <h6 style={{width: '100%',
+    fontFamily: 'Montserrat',
+    padding: 25,
+    paddingBottom: 15,
+    paddingTop: 0,
+    textAlign: 'justify'}}>
             {coin?.description.en.split('. ')[0]}.
           </h6>
-          <div className={classes.marketData}>
+          <div style={{alignSelf: 'start',
+    padding: 25,
+    paddingTop: 10,
+    width: '100%',}}>
           <span style={{display: 'flex'}}>
-            <h5 className={classes.heading}>
+            <h5 style={{fontWeight: 'bold',
+    marginBottom: 20,
+    fontFamily: 'Montserrat'}}>
               Rank:
             </h5>
             &nbsp; &nbsp;
@@ -86,7 +87,9 @@ const CoinsPage = () => {
             </h5>
           </span>
           <span style={{ display: 'flex' }}>
-            <h5 className={classes.heading}>
+            <h5 style={{fontWeight: 'bold',
+    marginBottom: 20,
+    fontFamily: 'Montserrat'}}>
               Current Price:
             </h5>
             &nbsp; &nbsp;
@@ -102,7 +105,9 @@ const CoinsPage = () => {
             </h5>
           </span>
           <span style={{ display: 'flex' }}>
-            <h5 className={classes.heading}>
+            <h5 style={{fontWeight: 'bold',
+    marginBottom: 20,
+    fontFamily: 'Montserrat'}}>
               Market Cap:
             </h5>
             &nbsp; &nbsp;
@@ -122,8 +127,8 @@ const CoinsPage = () => {
           </span>
         </div>
         </div>
-      </div>
       <CoinInfo coin={coin}></CoinInfo>
+      </div>
     </div>
   )
 }
