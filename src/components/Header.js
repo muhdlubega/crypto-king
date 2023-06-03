@@ -1,10 +1,12 @@
 import React from "react";
 import { useNavigate } from "react-router-dom";
 import { CryptoState } from "../CryptoContext";
+import AuthModal from "./Authentication/AuthModal";
+import Sidebar from "./Authentication/Sidebar";
 
 const Header = () => {
   const navigate = useNavigate();
-  const { currency, setCurrency } = CryptoState();
+  const { currency, setCurrency, user } = CryptoState();
 
   const handleCurrencyChange = (e) => {
     setCurrency(e.target.value);
@@ -46,6 +48,7 @@ const Header = () => {
             <option value="eur">EUR</option>
             <option value="jpy">JPY</option>
           </select>
+          {user ? <Sidebar/> : <AuthModal/>}
         </nav>
       </div>
     </header>

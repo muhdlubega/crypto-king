@@ -25,19 +25,10 @@ const useStyles = () => ({
 const Table = () => {
   const classes = useStyles();
   const navigate = useNavigate();
-  const [coins, setCoins] = useState([]);
-  const [loading, setLoading] = useState(false);
   const [search, setSearch] = useState("");
   const [page, setPage] = useState(1);
-  const { currency, symbol } = CryptoState();
+  const { currency, symbol, coins, loading, fetchCoins } = CryptoState();
 
-  const fetchCoins = async () => {
-    setLoading(true);
-    const { data } = await axios.get(CoinList(currency));
-    console.log(data);
-    setCoins(data);
-    setLoading(false);
-  };
 
   useEffect(() => {
     fetchCoins();
@@ -116,7 +107,6 @@ const Table = () => {
             }}
           >
             <tr>
-              <td>
                 {handleSearch()
                   .slice((page - 1) * 10, (page - 1) * 10 + 10)
                   .map((row) => {
@@ -182,7 +172,6 @@ const Table = () => {
                       </tr>
                     );
                   })}
-              </td>
             </tr>
           </table>
         </div>

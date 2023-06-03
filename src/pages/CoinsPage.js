@@ -5,6 +5,8 @@ import { CryptoState } from '../CryptoContext';
 import axios from 'axios';
 import { SingleCoin } from '../config/api';
 import CoinInfo from '../components/CoinInfo';
+import { doc, setDoc } from 'firebase/firestore';
+import { db } from '../firebase';
 
 const useStyles = () => ({
   description: {
@@ -23,6 +25,7 @@ const useStyles = () => ({
   }
 });
 
+
 export function numbersWithCommas(x) {
   return x.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
 }
@@ -30,7 +33,7 @@ export function numbersWithCommas(x) {
 const CoinsPage = () => {
   const { id } = useParams();
   const [coin, setCoin] = useState();
-  const { currency , symbol } = CryptoState();
+  const { currency , symbol, user, watchlist } = CryptoState();
 
   const fetchCoin = async () => {
     const { data } = await axios.get(SingleCoin(id));
@@ -42,6 +45,32 @@ const CoinsPage = () => {
   }, []);
 
   const classes = useStyles();
+
+  const inWatchlist = watchlist.includes(coin?.id);
+
+const addToWatchlist = async() => {
+  const coinRef = doc(db, "watchlist", user.uid);
+
+  try{
+    await setDoc(coinRef,
+      {coins:watchlist?[...watchlist, coin?.id]:[coin?.id]})
+  } catch(error){
+    console.log(error)
+  }
+}
+
+const removeFromWatchlist = async() => {
+  const coinRef = doc(db, "watchlist", user.uid);
+
+  try{
+    await setDoc(coinRef,
+      {coins: watchlist.filter((watch) => watch !== coin?.id)},
+      {merge: 'true'}
+      )
+  } catch(error){
+    console.log(error)
+  }
+}
 
   if (!coin) return(<div>Loading...</div>);
 
@@ -125,6 +154,11 @@ const CoinsPage = () => {
               M
             </h5>
           </span>
+          {user && (
+            <button onClick={inWatchlist ? removeFromWatchlist : addToWatchlist} style={{width: '100%', height: 40, backgroundColor: inWatchlist ? 'grey' : 'darkorchid', borderRadius: 10, color: 'white', cursor: 'pointer', borderStyle: 'none'}}>
+              {inWatchlist?"Remove from Watchlist":"Add to Watchlist"}
+              </button>
+          )}
         </div>
         </div>
       <CoinInfo coin={coin}></CoinInfo>
